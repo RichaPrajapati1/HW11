@@ -5,6 +5,7 @@
 ###############################################################################
 # Imports  # there will only be one import added here.
 import os
+import this
 
 ###############################################################################
 # Write f01 that prints "Hello World!" and calls f02. (three lines)
@@ -208,11 +209,17 @@ def f14():
 # [[], [], [], [], [], [], [], [], [0], []]
 # [[], [], [], [], [], [], [], [], [], [0]]
 def f15():
-
-
-
-
-
+    list1 = []
+    list2 = [0]
+    print_list = []
+    for i in range(10):
+        for j in range(10):
+            if i == j:
+                print_list.append(list2)
+            else:
+                print_list.append(list1)
+        print print_list
+        print_list = []
 
     f16([1,2,3],[4,5,6])  # Last line in f15()
 ###############################################################################
@@ -279,7 +286,6 @@ def f21(word):
 # ['PYTHON!', ['Other1', 'Other_2']]
 def f22():
     list_ = []
-    d = {}
     with open("few_words.txt","rb") as fin:
         line = fin.read().strip().split("\n")
 #a list of all capitalized words in few_words.txt
@@ -288,27 +294,29 @@ def f22():
     print list_
 #sorting the above list
     list_ = sorted(list_,key = len)
-    print list_
 #removing duplicates
     list_ = sorted(list(set(list_)),key = len)
-    print list_
 #moving Python to the front
     python_index = 0
     for idx,word in enumerate(list_):
         if word == 'Python':
             python_index = idx
     list_.insert(0, list_.pop(python_index))
-    print list_
 #making python uppercase
-    
-
-
-
-
-
-
-
-
+    list_[0] = list_[0].upper()
+#Deleting magic from list
+    magic_idx = 0
+    for idx,word in enumerate(list_):
+        if word == 'Magic':
+            magic_idx = idx
+    if magic_idx != 0:
+        list_.pop(magic_idx)
+ #Adding exclamation mark to python
+    list_[0] += '!'
+    list2 = []
+    list2.append(list_[1:])
+    list2.insert(0, list_[0])
+    print list2
     f23([["o","o","x"],["x","o","x"],["o","","x"]])  # Last lines in f22()
     f23([["o","","o"],["x","o","x"],["o","x","x"]])
     f23([["o","o","x"],["x","x","x"],["o","","o"]])
@@ -322,30 +330,64 @@ def f22():
 # row3 = ["","",""]
 # Ex. of print: x, col2
 def f23(lists_):
+# # checking for columns
+    for i in range(3):
+        flag = True
+        for j in range(2):
+            if lists_[i][j] == lists_[i][j+1]:
+                flag = flag and True
+            else:
+                flag = False
+        if flag == True:
+            print("{0}, col{1}" .format(lists_[i][j],i+1))
 
 
+# checking for rows
+    for j in range(3):
+        flag = True
+        for i in range(2):
+            if lists_[i][j] == lists_[i+1][j]:
+                flag = flag and True
+            else:
+                flag = False
+        if flag == True:
+            print("{0}, col{1}" .format(lists_[i][j],j+1))
 
-
-
-
-
-
-
-
-
-
+# checking for falling back diag
+    i = 0
+    flag = True
+    for j in range(2):
+        if lists_[i][j] == lists_[i+1][j+1]:
+            flag = flag and True
+            pattern = lists_[i][j]
+        else:
+            flag = False
+        i += 1
+    if flag == True:
+        print("{0}, falling_back_diag" .format(lists_[i][j]))
+# checking for falling front diag
+    i=2
+    flag = True
+    for j in range(2):
+        if lists_[i][j] == lists_[i-1][j+1]:
+            flag = flag and True
+            pattern = lists_[i][j]
+        else:
+            flag = False
+        i -= 1
+    if flag == True:
+        print("{0}, falling_front_diag" .format(pattern))
 
 
 # Write main() that calls f01, then prints the The Zen of Python, by Tim Peters.
 # (three lines)
 def main():
-
-
-
-
-
+    f01()
+    import this
 
 
 # Write the boilerplate code. (two lines)
+if __name__ == '__main__':
+    main()
 
 
